@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Resume Analyzer - AI-Powered Job Matching</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for Data Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- PDF.js for PDF reading (stub support) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+    
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="sticky top-0 z-50 glass-navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">ATS</span>
+                    </div>
+                    <span class="text-white font-bold text-xl hidden sm:inline">ResumeAI</span>
+                </div>
+                
+                <!-- Nav Links -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#features" class="text-gray-300 hover:text-white transition">Features</a>
+                    <a href="#analyzer" class="text-gray-300 hover:text-white transition">Analyzer</a>
+                    <a href="#about" class="text-gray-300 hover:text-white transition">About</a>
+                </div>
+                
+                <!-- Auth Buttons -->
+                <div class="flex items-center space-x-3">
+                    <!-- Login/Signup Buttons (shown when logged out) -->
+                    <div id="authButtons" class="flex items-center space-x-3">
+                        <button id="loginBtn" class="px-4 py-2 text-white hover:text-blue-300 transition font-medium">
+                            Sign In
+                        </button>
+                        <button id="signupBtn" class="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition font-medium">
+                            Sign Up
+                        </button>
+                    </div>
+                    
+                    <!-- Logout Button (shown when logged in) -->
+                    <button id="logoutBtn" class="hidden px-6 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg hover:shadow-lg hover:shadow-red-500/50 transition font-medium">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative px-4 py-20 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        </div>
+        
+        <div class="relative max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                AI-Powered Resume <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">ATS Scoring</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Analyze your resume in seconds. Get AI-powered insights on ATS compatibility, missing keywords, and skill matching against job descriptions.
+            </p>
+            <button onclick="document.getElementById('analyzer').scrollIntoView({ behavior: 'smooth' })" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition transform hover:scale-105">
+                Get Started
+            </button>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section id="features" class="max-w-6xl mx-auto px-4 py-16">
+        <h2 class="text-4xl font-bold text-white text-center mb-12">Key Features</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Feature 1 -->
+            <div class="glass-card p-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg mb-4 flex items-center justify-center">
+                    <span class="text-2xl">📄</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Drag & Drop Upload</h3>
+                <p class="text-gray-400">Easily upload your resume via drag-and-drop or file selector. Supports .txt and .pdf formats.</p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="glass-card p-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg mb-4 flex items-center justify-center">
+                    <span class="text-2xl">🤖</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">AI Analysis</h3>
+                <p class="text-gray-400">Leverage advanced AI to compare your resume against job descriptions instantly.</p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="glass-card p-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-600 rounded-lg mb-4 flex items-center justify-center">
+                    <span class="text-2xl">📊</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Visual Insights</h3>
+                <p class="text-gray-400">See your ATS score visualized with beautiful charts and detailed analytics.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MAIN ANALYZER SECTION ==================== -->
+    <section id="analyzer" class="max-w-7xl mx-auto px-4 py-16">
+        <div class="grid lg:grid-cols-2 gap-8">
+            
+            <!-- ========== LEFT COLUMN: INPUTS ========== -->
+            <div class="space-y-6">
+                <!-- Resume Upload -->
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                        <span>📤</span>
+                        <span>Upload Your Resume</span>
+                    </h3>
+                    
+                    <!-- Drag and Drop Zone -->
+                    <div id="dropZone" class="border-2 border-dashed border-purple-500 rounded-lg p-8 text-center cursor-pointer hover:border-purple-400 transition bg-purple-500/5 hover:bg-purple-500/10">
+                        <input type="file" id="resumeFile" accept=".txt,.pdf" class="hidden">
+                        <div class="text-4xl mb-3">📎</div>
+                        <p class="text-white font-semibold mb-2">Drag your resume here</p>
+                        <p class="text-gray-400 text-sm mb-4">or</p>
+                        <button type="button" id="fileSelectBtn" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:shadow-lg transition font-medium">
+                            Browse Files
+                        </button>
+                        <p class="text-gray-500 text-xs mt-4">Supported formats: .txt, .pdf</p>
+                    </div>
+                    
+                    <!-- File Preview -->
+                    <div id="filePreview" class="mt-4 hidden">
+                        <div class="bg-green-500/20 border border-green-500 rounded-lg p-3">
+                            <p class="text-green-300 text-sm flex items-center space-x-2">
+                                <span>✓</span>
+                                <span id="fileName">File ready</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Resume Text Display -->
+                    <div id="resumePreview" class="mt-4 hidden">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Resume Content</label>
+                        <div class="h-32 bg-slate-800 rounded-lg p-3 overflow-y-auto border border-slate-700">
+                            <p id="resumeText" class="text-gray-300 text-xs leading-relaxed whitespace-pre-wrap"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Job Description -->
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                        <span>🎯</span>
+                        <span>Job Description</span>
+                    </h3>
+                    <textarea id="jobDescription" placeholder="Paste the job description here. Include requirements, skills, and responsibilities..." class="w-full h-48 bg-slate-800 border border-slate-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition resize-none"></textarea>
+                    <p class="text-gray-500 text-xs mt-2">Be as detailed as possible for better AI analysis</p>
+                </div>
+                
+                <!-- Analyze Button -->
+                <button id="analyzeBtn" class="w-full py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold text-lg rounded-lg hover:shadow-2xl hover:shadow-purple-500/50 transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    🚀 Analyze Resume
+                </button>
+            </div>
+            
+            <!-- ========== RIGHT COLUMN: RESULTS ========== -->
+            <div class="space-y-6">
+                
+                <!-- ATS Score Card -->
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-white mb-6">ATS Score</h3>
+                    
+                    <!-- Doughnut Chart -->
+                    <div class="flex justify-center mb-6">
+                        <canvas id="atsChart" width="200" height="200" style="max-width: 200px;"></canvas>
+                    </div>
+                    
+                    <!-- Score Display -->
+                    <div id="scoreDisplay" class="hidden text-center">
+                        <div class="text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">
+                            <span id="scoreValue">0</span>%
+                        </div>
+                        <p id="scoreInterpretation" class="text-gray-400 text-sm"></p>
+                    </div>
+                    
+                    <!-- Loading State -->
+                    <div id="scoreLoading" class="hidden text-center">
+                        <div class="animate-spin inline-block w-8 h-8 border-4 border-purple-500 border-t-blue-500 rounded-full"></div>
+                        <p class="text-gray-400 mt-3">Analyzing your resume...</p>
+                    </div>
+                    
+                    <!-- Empty State -->
+                    <div id="scoreEmpty" class="text-center">
+                        <p class="text-gray-400">Upload a resume and job description to get started</p>
+                    </div>
+                </div>
+                
+                <!-- Identified Skills -->
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                        <span>✨</span>
+                        <span>Identified Skills</span>
+                    </h3>
+                    <div id="skillsList" class="space-y-2">
+                        <p class="text-gray-400 text-sm">Skills will appear here after analysis</p>
+                    </div>
+                </div>
+                
+                <!-- Missing Keywords -->
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                        <span>⚠️</span>
+                        <span>Missing Keywords</span>
+                    </h3>
+                    <div id="missingKeywordsList" class="space-y-2">
+                        <p class="text-gray-400 text-sm">Missing keywords will appear here after analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== LOGIN MODAL ==================== -->
+    <div id="loginModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="glass-card max-w-md w-full p-8 relative">
+            <!-- Close Button -->
+            <button id="closeLoginModal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                ✕
+            </button>
+            
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Sign In</h2>
+            
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                    <input type="email" required class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-purple-500 transition" placeholder="your@email.com">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                    <input type="password" required class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-purple-500 transition" placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-lg hover:shadow-lg transition">
+                    Sign In
+                </button>
+            </form>
+            
+            <p class="text-center text-gray-400 mt-4">
+                Don't have an account? 
+                <button type="button" id="switchToSignup" class="text-purple-400 hover:text-purple-300 transition font-semibold">Sign Up</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- ==================== SIGNUP MODAL ==================== -->
+    <div id="signupModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="glass-card max-w-md w-full p-8 relative">
+            <!-- Close Button -->
+            <button id="closeSignupModal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                ✕
+            </button>
+            
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Sign Up</h2>
+            
+            <form id="signupForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                    <input type="text" required class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-purple-500 transition" placeholder="John Doe">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                    <input type="email" required class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-purple-500 transition" placeholder="your@email.com">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                    <input type="password" required class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-purple-500 transition" placeholder="••••••••">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Confirm Password</label>
+                    <input type="password" required class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-purple-500 transition" placeholder="••••••••">
+                </div>
+                
+                <label class="flex items-center space-x-2 text-sm text-gray-400">
+                    <input type="checkbox" required class="w-4 h-4 rounded">
+                    <span>I agree to the Terms of Service</span>
+                </label>
+                
+                <button type="submit" class="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-lg hover:shadow-lg transition">
+                    Create Account
+                </button>
+            </form>
+            
+            <p class="text-center text-gray-400 mt-4">
+                Already have an account? 
+                <button type="button" id="switchToLogin" class="text-purple-400 hover:text-purple-300 transition font-semibold">Sign In</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about" class="max-w-4xl mx-auto px-4 py-16 text-center">
+        <h2 class="text-4xl font-bold text-white mb-6">About ATS Analyzer</h2>
+        <div class="glass-card p-8">
+            <p class="text-gray-300 text-lg leading-relaxed">
+                Our AI-powered ATS analyzer helps job seekers optimize their resumes for Applicant Tracking Systems. 
+                By comparing your resume against job descriptions using advanced AI, we provide actionable insights to 
+                improve your chances of landing interviews. All processing is done securely on your device.
+            </p>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="border-t border-white/10 mt-16 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center text-gray-400">
+            <p>&copy; 2026 ATS Resume Analyzer. All rights reserved. | Built with ❤️ using AI</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
